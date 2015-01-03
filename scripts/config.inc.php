@@ -7,7 +7,6 @@
 	define("DBPASS", "");
 	define("DBDATABASE", "musikdatenbank");
 	//Musicdirectory
-	// /home/sebkoch/musik/Hörspiele/E/Hoerspiele
 	$con=mysqli_connect(DBHOST,DBUSER,DBPASS,DBDATABASE);
 	$sql    = "SELECT path FROM settings";
 	$result=mysqli_query($con,$sql);
