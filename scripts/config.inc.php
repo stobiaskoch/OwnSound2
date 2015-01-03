@@ -16,6 +16,4 @@
 	//define("MUSICDIR", "/home/sebkoch/musik/Hörspiele/E/Hoerspiele/Grusel/Amadeus/");
 	//Url
 	define("OWNURL", "/ownsound3");
-	//UpdateServer
-	define("UPDATESERVER", "http://euve30480.vserver.de/ownsound/");
 	?>
