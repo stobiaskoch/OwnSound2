@@ -25,6 +25,8 @@ OwnSound2 benutzt folgenden Code:
 - Toolbar.Js (http://paulkinzett.github.io/toolbar/)
 - toastr (https://github.com/CodeSeven/toastr)
 - http://cssmenumaker.com/
+- getid3 (http://getid3.sourceforge.net/)
+- phpthumb (http://phpthumb.sourceforge.net/)
 
 
 2014 - s.t.koch77@gmail.com
