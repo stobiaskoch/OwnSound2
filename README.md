@@ -19,3 +19,9 @@ Install:
 - Importieren der beigefügten SQL-Datei "musikdatenbank.sql" um die Datenbankstruktur zu erzeugen
 - Einloggen mit "admin" und "password"
 - Ordner mit den MP3-Dateien unter "Admin" eintragen und den Scanner starten
+
+OwnSound2 benutzt folgenden Code:
+- Jplayer (http://jplayer.org/)
+- Toolbar.Js (http://paulkinzett.github.io/toolbar/)
+- toastr (https://github.com/CodeSeven/toastr)
+- http://cssmenumaker.com/
