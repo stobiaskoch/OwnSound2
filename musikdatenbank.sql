@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `album` (
   `label` varchar(100) DEFAULT NULL,
   `plays` int(11) NOT NULL DEFAULT '0',
   `downloads` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1686 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
   `name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `navname` varchar(500) CHARACTER SET utf8 NOT NULL,
   `fav` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
 CREATE TABLE IF NOT EXISTS `scanner` (
 `id` int(11) NOT NULL,
   `path` varchar(500) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `title` (
   `path` varchar(700) NOT NULL,
   `track` int(11) NOT NULL,
   `plays` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=16476 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `active` set('0','1') NOT NULL DEFAULT '0',
   `loginfails` int(11) NOT NULL,
   `actlink` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indizes der exportierten Tabellen
@@ -207,3 +207,6 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `user` (`id`, `name`, `fullname`, `email`, `password`, `role`, `active`, `loginfails`, `actlink`) VALUES
+(20, 'admin', 'Admin Admin', '', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', '1', 0, '');
