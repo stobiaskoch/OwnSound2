@@ -6,7 +6,7 @@
 <script type="text/javascript">
 	var cssSelector = { jPlayer: "#jquery_jplayer_2", cssSelectorAncestor: "#jp_container_2" };
 	var playlist = [];
-	var options = { swfPath: "/js", supplied: "ogv, m4v, oga, mp3",size: {
+	var options = { swfPath: "js", supplied: "ogv, m4v, oga, mp3",size: {
 			  width: "0px",
 			  height: "0px"}, smoothPlayBar: "true", errorAlerts: "true", warningAlerts: "true"};
 	var ploptions = {displayTime: 0, enableRemoveControls: "true", autoPlay: "false" };
@@ -73,36 +73,44 @@ error_reporting(1);
 $albumpic = $_REQUEST['albumID'];
 ini_set('display_errors', 'On');
 if($_REQUEST['order']=="playalbum") {
-		?>
+	?>
 		<script type="text/javascript">
 			myPlaylist.remove();
 			var titles = new Array();
 			var mp3s = new Array();
 			localStorage.setItem("act_title", '0');
 		</script>
-		<?php
-	$artistname = getartist(getartistIDfromalbumID($_REQUEST['albumID']));
-	$albumname = getalbum($_REQUEST['albumID']);
-	$albumid = $_REQUEST['albumID'];
-	$artistname = getartist(getartistIDfromalbumID($albumid));
-	$titles = GetTitlesfromAlbumID($albumid);
-	foreach ($titles as $value) {
-		?>
+	<?php
+		$artistname = getartist(getartistIDfromalbumID($_REQUEST['albumID']));
+		$albumname = getalbum($_REQUEST['albumID']);
+		$albumid = $_REQUEST['albumID'];
+		$artistname = getartist(getartistIDfromalbumID($albumid));
+		$titles = GetTitlesfromAlbumID($albumid);
+		foreach ($titles as $value) {
+	?>
 		<script type="text/javascript">
 			myPlaylist.add({
-				title: '<?php echo substr(getTrackTitle($value),0, 38); ?>',
+				title: "<?php echo substr(getTrackTitle($value),0, 38); ?>",
 				mp3:"./scripts/mp3.php?id=<?php echo $value; ?>"
 			});
-			titles.push('<?php echo substr(getTrackTitle($value),0, 38); ?>');
+			titles.push("<?php echo substr(getTrackTitle($value),0, 38); ?>");
 			mp3s.push('<?php echo $value; ?>');
+			
 			localStorage["titles"] = JSON.stringify(titles);
 			localStorage["mp3s"] = JSON.stringify(mp3s);
+			
 			myPlaylist.select(localStorage.getItem("act_title"));
-			$("#titletext").html("<div id='cssmenu' style='padding-left: 132px; width:180px; height: 50px;'><a href='#' onclick='albumlist("+localStorage.getItem('artistID')+")'><font size='2px' color='#4faac6'><b>["+localStorage.getItem('artistname')+"]</font></b></a><br>"+localStorage.getItem('albumname')+"</div>");
-		myPlaylist.play();
 		</script>
-		<?php
-}
+	<?php
+		}
+	?>
+		<script>
+			myPlaylist.play();
+			var artistname = ('<?php echo $artistname; ?>');
+			localStorage['artistname'] = artistname;
+			$("#titletext").html("<div id='cssmenu' style='padding-left: 132px; width:180px; height: 50px;'><a href='#' onclick='albumlist("+localStorage.getItem('artistID')+")'><font size='2px' color='#4faac6'><b>["+localStorage.getItem('artistname')+"]</font></b></a><br>"+localStorage.getItem('albumname')+"</div>");
+		</script>
+	<?php
 }
 else
 {
@@ -123,11 +131,9 @@ else
 			myPlaylist.play(actual + 1);
 			document.getElementById("imageid").src="./scripts/get.php?picid="+localStorage.getItem("album");
 			$("#titletext").html("<div id='cssmenu' style='padding-left: 132px; width:180px; height: 50px;'><a href='#' onclick='albumlist("+localStorage.getItem('artistID')+")'><font size='2px' color='#4faac6'><b>["+localStorage.getItem('artistname')+"]</font></b></a><br>"+localStorage.getItem('albumname')+"</div>");
-		
 		</script>
 	<?php
 	}
-	$title = "placeholder";
 ?>
 <img id="imageid" style="float:left; padding-top:5px;padding-left:22px;" src="./scripts/get.php?picid=<?php echo $albumpic."&".rand(5, 100000); ?>" width='120' height='120'>
 <div style="float:left; top:50px; left: 25px; position: absolute;" id="titletext"></div>
