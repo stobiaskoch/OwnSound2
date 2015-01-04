@@ -28,6 +28,3 @@ OwnSound2 benutzt folgenden Code:
 - getid3 (http://getid3.sourceforge.net/)
 - phpthumb (http://phpthumb.sourceforge.net/)
 
-
-2014 - s.t.koch77@gmail.com
-Licence : http://www.wtfpl.net/
