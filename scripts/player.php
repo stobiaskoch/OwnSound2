@@ -101,10 +101,8 @@ if($_REQUEST['order']=="playalbum") {
 		}
 	?>
 		<script>
-			var artistname = ('<?php echo $artistname; ?>');
-			var albumname = ('<?php echo $albumname; ?>');
-			localStorage['artistname'] = artistname;
-			localStorage['albumname'] = albumname;
+			localStorage['artistname'] = '<?php echo $artistname; ?>';
+			localStorage['albumname'] = '<?php echo $albumname; ?>';
 			$("#titletext").html("<div id='cssmenu' style='padding-left: 132px; width:180px; height: 50px;'><a href='#' onclick='albumlist("+localStorage.getItem('artistID')+")'><font size='2px' color='#4faac6'><b>["+localStorage.getItem('artistname')+"]</font></b></a><br>"+localStorage.getItem('albumname')+"</div>");
 		</script>
 	<?php
