@@ -8,7 +8,7 @@
 	var playlist = [];
 	var options = { swfPath: "js", supplied: "ogv, m4v, oga, mp3",size: {
 			  width: "0px",
-			  height: "0px"}, smoothPlayBar: "true", errorAlerts: "true", warningAlerts: "true"};
+			  height: "0px"}, smoothPlayBar: "true", errorAlerts: "false", warningAlerts: "false"};
 	var ploptions = {displayTime: 0, enableRemoveControls: "true", autoPlay: "false" };
 
 	var myPlaylist = new jPlayerPlaylist(cssSelector, playlist, options, ploptions);
@@ -49,7 +49,6 @@
 		$("#jquery_jplayer_2").bind($.jPlayer.event.play, function(event) { // Add a listener to report the time play began
 			localStorage.setItem("act_title", myPlaylist.current);
 			var time = $("#jquery_jplayer_2").data("jPlayer").status.currentTime
-			console.log(time);
 		});
 		$("#jquery_jplayer_2").bind($.jPlayer.event.pause, function(event) { // Add a listener to report the time play began
 			var time = $("#jquery_jplayer_2").data("jPlayer").status.currentTime
@@ -127,7 +126,6 @@ else
 			var actual = localStorage.getItem("act_title");
 			var actualtime = localStorage.getItem("time");
 			actual -= 1;
-			console.log(actual);
 			myPlaylist.play(actual + 1);
 			document.getElementById("imageid").src="./scripts/get.php?picid="+localStorage.getItem("album");
 			$("#titletext").html("<div id='cssmenu' style='padding-left: 132px; width:180px; height: 50px;'><a href='#' onclick='albumlist("+localStorage.getItem('artistID')+")'><font size='2px' color='#4faac6'><b>["+localStorage.getItem('artistname')+"]</font></b></a><br>"+localStorage.getItem('albumname')+"</div>");
