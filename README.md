@@ -21,7 +21,11 @@ Install:
 - Ordner mit den MP3-Dateien unter "Admin" eintragen und den Scanner starten
 
 OwnSound2 benutzt folgenden Code:
-- Jplayer (http://jplayer.org/)
+- jplayer (http://jplayer.org/)
 - Toolbar.Js (http://paulkinzett.github.io/toolbar/)
 - toastr (https://github.com/CodeSeven/toastr)
 - http://cssmenumaker.com/
+
+
+2014 - s.t.koch77@gmail.com
+Licence : http://www.wtfpl.net/
