@@ -7,7 +7,7 @@ OwnSound2 ist eine MP3-Verwaltung und Player auf HTML5/PHP/MySQL-Basis.
 Features:
 - Zugriff auf MP3-Dateien ausserhalb des www-roots
 - Alle Daten werden in MySQL gespeichert
-- Cover werden in der MySQL-Datenbank abgelegt, keine tausende jpg-Files au der Platte
+- Cover werden in der MySQL-Datenbank abgelegt, keine tausende jpg-Files auf der Platte
 - Interpreten- und Albumdetails bearbeitbar, keine Ändererungen an den Dateien selbst
 - Playlists
 - Alben als zip downloaden
