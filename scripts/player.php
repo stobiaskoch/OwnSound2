@@ -6,7 +6,7 @@
 <script type="text/javascript">
 	var cssSelector = { jPlayer: "#jquery_jplayer_2", cssSelectorAncestor: "#jp_container_2" };
 	var playlist = [];
-	var options = { swfPath: "js", supplied: "ogv, m4v, oga, mp3",size: {
+	var options = { swfPath: "js", supplied: "ogv, m4v, oga, mp3", preload: "true", size: {
 			  width: "0px",
 			  height: "0px"}, smoothPlayBar: "true", errorAlerts: "false", warningAlerts: "false"};
 	var ploptions = {displayTime: 0, enableRemoveControls: "true", autoPlay: "false" };
@@ -48,7 +48,6 @@
 	$(document).ready(function() {
 		$("#jquery_jplayer_2").bind($.jPlayer.event.play, function(event) { // Add a listener to report the time play began
 			localStorage.setItem("act_title", myPlaylist.current);
-			var time = $("#jquery_jplayer_2").data("jPlayer").status.currentTime
 		});
 		$("#jquery_jplayer_2").bind($.jPlayer.event.pause, function(event) { // Add a listener to report the time play began
 			var time = $("#jquery_jplayer_2").data("jPlayer").status.currentTime
@@ -94,19 +93,18 @@ if($_REQUEST['order']=="playalbum") {
 			});
 			titles.push("<?php echo substr(getTrackTitle($value),0, 38); ?>");
 			mp3s.push('<?php echo $value; ?>');
-			
 			localStorage["titles"] = JSON.stringify(titles);
 			localStorage["mp3s"] = JSON.stringify(mp3s);
-			
 			myPlaylist.select(localStorage.getItem("act_title"));
 		</script>
 	<?php
 		}
 	?>
 		<script>
-			myPlaylist.play();
 			var artistname = ('<?php echo $artistname; ?>');
+			var albumname = ('<?php echo $albumname; ?>');
 			localStorage['artistname'] = artistname;
+			localStorage['albumname'] = albumname;
 			$("#titletext").html("<div id='cssmenu' style='padding-left: 132px; width:180px; height: 50px;'><a href='#' onclick='albumlist("+localStorage.getItem('artistID')+")'><font size='2px' color='#4faac6'><b>["+localStorage.getItem('artistname')+"]</font></b></a><br>"+localStorage.getItem('albumname')+"</div>");
 		</script>
 	<?php
