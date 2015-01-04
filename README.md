@@ -28,3 +28,5 @@ OwnSound2 benutzt folgenden Code:
 - getid3 (http://getid3.sourceforge.net/)
 - phpthumb (http://phpthumb.sourceforge.net/)
 
+Demo unter http://ownsound.no-ip.info/ownsound_demo/
+Benutzer: demo Passwort: demo
