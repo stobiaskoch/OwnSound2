@@ -20,7 +20,8 @@ mysql_select_db(DBDATABASE) or die ("Die Datenbank existiert nicht.");
 // Make sure the file exists
 if(!file_exists($mp3Path) || !is_file($mp3Path)) {
     header('HTTP/1.0 404 Not Found');
-    die('The file does not exist');
+	echo "SELECT path FROM title WHERE id = '$id'";
+    die('The file '.$mp3Path.' does not exist');
 }
 
 // Set the appropriate content-type

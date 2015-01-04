@@ -68,7 +68,8 @@ if(!$_REQUEST['artistlist']) {
 	echo "<div id='cssmenu'><font size='2px' color='#4faac6'><b>".getartist($artistID)."</font></b> - " . $albumcount . "</div>";
 		?>	
 			<div id='cssmenu'>
-			<?php if(GetUserDetailsByID($_COOKIE['loggedInID'], 'group')=="admin") { ?>
+			<?php if(GetUserDetailsByID($_COOKIE['loggedInID'], 'role')=="admin") { ?>
+			
 				&#9998; <a id="albummenu" href='#' onclick="renameartist('<?php echo $artistID; ?>' , '<?php echo getartist($artistID); ?>')"><span>Interpret umbennen</span></a>
 				&#10006; <a id="albummenu" href='#' onclick="deleteartist('<?php echo $artistID; ?>' , '<?php echo getartist($artistID); ?>')"><span>Interpret löschen</span></a><br>
 			<?php } ?>
