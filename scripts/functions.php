@@ -223,6 +223,19 @@ function GetUserList() {
 				mysqli_close($con);
 }
 
+function CheckUserExist($name) {
+				require_once('./config.inc.php');
+				$sql    = "SELECT name FROM user WHERE name='$name'";
+				$con=mysqli_connect(DBHOST,DBUSER,DBPASS,DBDATABASE);
+				$result=mysqli_query($con,$sql);
+				$row_cnt = mysqli_num_rows($result);
+				if(mysqli_num_rows($result)!="0") {
+					return "exist";
+				}
+				mysqli_free_result($result);
+				mysqli_close($con);
+}
+
 function coverinmysql ($url, $albumID) { 
 	require_once('./config.inc.php');
 	$file = "./tmp/".basename($url);
@@ -322,6 +335,50 @@ if($_REQUEST['order']=="savesettings") {
 		$mysqli = new mysqli(DBHOST,DBUSER,DBPASS,DBDATABASE);
 		$mysqli->query("UPDATE `settings` SET `path` = '$value' WHERE `settings`.`id` = 0;");
 		echo "Pfad gespeichert";
+}
+
+if($_REQUEST['order']=="cleandb") {
+	$fileexistnot = 0;
+	$albumexistnot = 0;
+	require_once('./config.inc.php');
+	$sql    = "SELECT path, id FROM title ORDER BY id";
+	$con=mysqli_connect(DBHOST,DBUSER,DBPASS,DBDATABASE);
+	$result=mysqli_query($con,$sql);
+	while ($row = mysqli_fetch_assoc($result)) {
+		$mp3Path = utf8_encode($row['path']);
+		if(!file_exists($mp3Path) || !is_file($mp3Path)) {
+			$fileexist++;
+		}
+		else {
+			if(!file_exists($row['path']) || !is_file($row['path'])) {
+				$fileexist++;
+			}
+			else {
+				$fileexistnot++;
+				$result=mysqli_query($con, "DELETE FROM title WHERE id = '".$row['id']."'");
+			}
+		}
+		
+	}
+	
+	
+	$sql    = "SELECT id FROM album ORDER BY id";
+	$con=mysqli_connect(DBHOST,DBUSER,DBPASS,DBDATABASE);
+	$result=mysqli_query($con,$sql);
+		while ($row = mysqli_fetch_assoc($result)) {
+			$sql2    = "SELECT id, name FROM title WHERE album = '".$row['id']."'";
+			$result2=mysqli_query($con,$sql2);
+			if(mysqli_num_rows($result2)=="0") {
+				$albumexistnot++;
+				$result=mysqli_query($con, "DELETE FROM album WHERE id = '".$row['id']."'");
+			}
+		
+	}
+	
+	echo $fileexistnot . " Dateien und $albumexistnot Alben aus der DB gelöscht.";
+
+	mysqli_free_result($result);
+	mysqli_close($con);
 }
 
 if($_REQUEST['order']=="userdetails") {
@@ -540,9 +597,9 @@ if($_REQUEST['order']=="createuser") {
 	$fullname = $_REQUEST['fullname'];
 	$actlink = md5($username);
 	$email = $_REQUEST['email'];
-	$checkmail = GetUserDetails($username, 'email');
-	if($checkmail=="") {
-		// die('E-Mail wird bereits verwendet!');
+	$checkmail = GetUserDetails($username, 'name');
+	if(CheckUserExist($username)==='exist') {
+		 die($username.' wird bereits verwendet!');
 	}
 	require_once('./config.inc.php');
 	$mysqli = new mysqli(DBHOST,DBUSER,DBPASS,DBDATABASE);

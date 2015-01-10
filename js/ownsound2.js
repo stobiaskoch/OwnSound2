@@ -79,6 +79,23 @@ function sysscan() {
 					toastr.success("Scan gestartet");
 				}
 			},
+						{
+				id: "button-clean",
+				text: "DB bereinigen",
+				click: function() {
+					$("#button-ok").button("disable");
+					$("#button-clean").button("disable");
+						$("#systemlog").load("scripts/functions.php?order=cleandb" ,function(responseTxt,statusTxt,xhr){
+							if(statusTxt=="success")
+								toastr.info(responseTxt);
+							
+							if(statusTxt=="error")
+								toastr.error(responseTxt);
+							$('#scandialog').dialog( "close" );
+						});
+						
+				}
+			},
 			{
 				id: "button-cancel",
 				text: "Abbrechen",
@@ -90,7 +107,7 @@ function sysscan() {
 			}
 		],
 		height:  250,
-		width: 400,
+		width: 500,
 		modal: true,
 		autoOpen: false
     });
@@ -332,12 +349,19 @@ function changepassword(id, value) {
 	$("#systemlog").load("index.php?order=newuser");
 	var value2 = document.getElementById('passwordcheck').value;
 	if(value==value2) {
-		$("#systemlog").load("scripts/functions.php?order=userdetails&detail=password&id="+id+"&value="+value ,function(responseTxt,statusTxt,xhr){
-			if(statusTxt=="success")
+		$.post( "scripts/functions.php", { 
+		order: "userdetails",
+		detail: "password",
+		id: id,
+		value: value
+		})
+			.done(function( responseTxt,statusTxt,xhr ) {
+    			if(statusTxt=="success")
 				toastr.info(responseTxt);
 			if(statusTxt=="error")
 				toastr.error(responseTxt);
 		});
+		$('#systemdialog').find('input:password').val('');
 	}
 	else
 	{
@@ -467,11 +491,17 @@ function changepasswordAdmin() {
 	var username = $('#userlist option:selected').data('username');
 	var newname = prompt( "Bitte neues Passwort eingeben" );
 	if (newname !== null) {
-		$("#systemlog").load("scripts/functions.php?order=userdetails&detail=password&id="+id+"&value="+newname ,function(responseTxt,statusTxt,xhr){
-		if(statusTxt=="success")
-			toastr.info(responseTxt);
-		if(statusTxt=="error")
-			toastr.error(responseTxt);
+		$.post( "scripts/functions.php", { 
+		order: "userdetails",
+		detail: "password",
+		id: id,
+		value: newname
+		})
+			.done(function( responseTxt,statusTxt,xhr ) {
+    			if(statusTxt=="success")
+				toastr.info(responseTxt);
+			if(statusTxt=="error")
+				toastr.error(responseTxt);
 		});
 	}
 }
@@ -496,8 +526,16 @@ function CreateUser() {
 		return false;
 	}
 		$("#systemlog").load("scripts/functions.php?order=createuser&username="+username+"&fullname="+encodeURIComponent(fullname)+"&email="+email ,function(responseTxt,statusTxt,xhr){
-		if(statusTxt=="success")
-			toastr.info(responseTxt);
+		if(statusTxt=="success") {
+			if (responseTxt.indexOf("verwendet") != -1) {
+				toastr.error(responseTxt);
+			}
+			else {
+				toastr.info(responseTxt);
+				
+			}
+		}
+			
 		if(statusTxt=="error")
 			toastr.error(responseTxt);
 		});

@@ -66,9 +66,9 @@ $useridlist = GetUserList();
 	<br>
 	<label>E-Mail: <input style="float:right;" type="text" value="<?php echo GetUserDetailsByID($_COOKIE['loggedInID'], 'email'); ?>" id="<?php echo $_COOKIE['loggedInID']; ?>" onchange="renameusermail(this.id, this.value);"></label><br>
 	<br>
-	<label>Passwort: <input style="float:right;" type="password" id="passwordcheck"></label><br>
+	<label>Passwort: <input style="float:right;" name="firstpw1" type="password" id="passwordcheck"></label><br>
 		<br>
-	<label>Wiederholung: <input style="float:right;" type="password" id="<?php echo $_COOKIE['loggedInID']; ?>" onchange="changepassword(this.id, this.value);"></label>
+	<label>Wiederholung: <input style="float:right;" name="firstpw2" type="password" id="<?php echo $_COOKIE['loggedInID']; ?>" onchange="changepassword(this.id, this.value);"></label>
  </p>
 </div>
 

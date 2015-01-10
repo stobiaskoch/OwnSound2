@@ -225,7 +225,7 @@ while ($zeile = mysql_fetch_array( $db_erg, MYSQL_ASSOC)) {
 	//wenn nicht, schreiben
 		
 		if($checkpath!=$path) {
-			$sql="INSERT INTO title (name, artist, path, album, duration, track) VALUES ('$title', '$artistID', '$path', '$albumID', '$playtime', '$track') ON DUPLICATE KEY UPDATE name='$title', artist='$artistID', path='$path', album='$albumID', duration='$playtime'";
+			$sql="INSERT INTO title (name, artist, path, album, duration, track) VALUES ('$title', '$artistID', '".utf8_decode($path)."', '$albumID', '$playtime', '$track') ON DUPLICATE KEY UPDATE name='$title', artist='$artistID', path='$path', album='$albumID', duration='$playtime'";
 			mysql_query($sql) OR DIE (mysql_error()."Title konnte nicht eingetragen werden.<br/>".$sql);
 			$timestamp = time();
 			$datum = date("d.m.Y",$timestamp);
