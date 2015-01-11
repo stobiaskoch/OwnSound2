@@ -31,9 +31,11 @@ echo "<div id='cssmenu' style='position:relative;'><a href='#' onclick='albumlis
 			$tracknumber = $zeile['track'];
 		}
 		$track = $tracknumber . " - " .utf8_encode($zeile['name']) . " -  [" . $zeile['duration'] . "]<br>";
+		$tracktitle = cut_text($zeile['name'], 35);
+		$tracktitle = urlencode(utf8_encode($tracktitle));
 		?>	
-		<a href='#' title="Titel abspielen" class="icon-play" style="margin-bottom: 4px; margin-top: 0px;" onclick="playtrackonly('<?php echo substr(utf8_encode($zeile['name']),0, 38); ?>', '<?php echo $zeile['id']; ?>', '<?php echo $_REQUEST['tracklist']; ?>', '<?php echo getartist(getartistIDfromalbumID($tracklist)); ?>');localStorage.setItem('artistID', '<?php echo getartistIDfromalbumID($tracklist); ?>');localStorage.setItem('albumname', '<?php echo getalbum($tracklist); ?>');"></a>
-		<a href='#' title="Hinzufügen" class="icon-plus" style="margin-bottom: 4px; margin-top: 0px;" onclick="addtrack('<?php echo substr(utf8_encode($zeile['name']),0, 38); ?>', '<?php echo $zeile['id']; ?>');"></a>
+		<a href='#' title="Titel abspielen" class="icon-play" style="margin-bottom: 4px; margin-top: 0px;" onclick="playtrackonly('<?php echo $tracktitle; ?>', '<?php echo $zeile['id']; ?>', '<?php echo $_REQUEST['tracklist']; ?>', '<?php echo getartist(getartistIDfromalbumID($tracklist)); ?>');localStorage.setItem('artistID', '<?php echo getartistIDfromalbumID($tracklist); ?>');localStorage.setItem('albumname', '<?php echo getalbum($tracklist); ?>');"></a>
+		<a href='#' title="Hinzufügen" class="icon-plus" style="margin-bottom: 4px; margin-top: 0px;" onclick="addtrack('<?php echo $tracktitle; ?>', '<?php echo $zeile['id']; ?>');"></a>
 		<a style="margin-bottom: 4px;"><?php echo $track; ?></a>
 
 		<?php

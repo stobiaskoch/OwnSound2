@@ -654,4 +654,31 @@ mail( $email,
 	echo "Account $fullname wurde angelegt.";
 	$mysqli->query("INSERT INTO user (name, fullname, email, role, actlink, active, password) VALUES ('$username', '$fullname', '$email', 'user', '$actlink', '0', '$value')");
 }
+
+function cut_text($string,$laenge)
+{ 
+  $origin=strlen($string);
+    $stri_arr=explode(" ",$string);
+    $anzzahl=count($stri_arr);
+    $gekuerzt=0;
+    $string="";
+    
+      while($gekuerzt<$anzzahl)
+    { 
+        $string_alt=$string;
+        $string=$string." ".$stri_arr[$gekuerzt];
+        $gekuerzt++;
+          if(strlen($string)>$laenge)
+        { 
+            $gekuerzt=$anzzahl; 
+            $string=$string_alt;
+          } 
+      } 
+      
+    if($laenge<$origin)
+    { 
+          $string=$string."...";
+      } 
+      return $string; 
+}
 ?>

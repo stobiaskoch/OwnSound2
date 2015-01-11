@@ -23,12 +23,13 @@
 	function addtrack(title, mp3) { 
 		var titles = JSON.parse(localStorage["titles"]);
 		var mp3s = JSON.parse(localStorage["mp3s"]);
+		title = decodeURIComponent((title+'').replace(/\+/g, '%20'));
 		titles.push(title);
 		mp3s.push(mp3);
 		localStorage['titles'] = JSON.stringify(titles);
 		localStorage['mp3s'] = JSON.stringify(mp3s);
 		myPlaylist.add({
-			title: title,
+			title: mp3s.length+" - "+title,
 			mp3:"./scripts/mp3.php?id="+mp3
 		});
 	}
@@ -37,6 +38,7 @@
 		localStorage.setItem("album", albumID);
 		var titles = new Array();
 		var mp3s = new Array();
+		title = decodeURIComponent((title+'').replace(/\+/g, '%20'));
 		titles.push(title);
 		mp3s.push(mp3);
 		localStorage['titles'] = JSON.stringify(titles);
@@ -66,6 +68,7 @@
 </script>
 </head>
 <?php
+
 include('./functions.php');
 error_reporting(1);
 $albumpic = $_REQUEST['albumID'];
@@ -85,13 +88,25 @@ if($_REQUEST['order']=="playalbum") {
 		$artistname = getartist(getartistIDfromalbumID($albumid));
 		$titles = GetTitlesfromAlbumID($albumid);
 		foreach ($titles as $value) {
+		$titlecount++;
+		if(strlen(getTrackTitle($value))<="38")  {
+			$tracktitle = 	urlencode(getTrackTitle($value));
+		}
+		else {
+			
+			$tracktitle = cut_text(getTrackTitle($value), 35);
+			$tracktitle = urlencode($tracktitle);
+		}
 	?>
 		<script type="text/javascript">
+
+			var title = "<?php echo $tracktitle; ?>";
+			title = decodeURIComponent((title+'').replace(/\+/g, '%20'));
+			titles.push(title);
 			myPlaylist.add({
-				title: "<?php echo substr(getTrackTitle($value),0, 38); ?>",
+				title: "<?php echo $titlecount; ?> - "+title,
 				mp3:"./scripts/mp3.php?id=<?php echo $value; ?>"
 			});
-			titles.push("<?php echo substr(getTrackTitle($value),0, 38); ?>");
 			mp3s.push('<?php echo $value; ?>');
 			localStorage["titles"] = JSON.stringify(titles);
 			localStorage["mp3s"] = JSON.stringify(mp3s);
@@ -115,7 +130,7 @@ else
 			var mp3s = JSON.parse(localStorage["mp3s"]);
 			for (i = 0; i < mp3s.length; i++) {
 				myPlaylist.add({
-					title: titles[i],
+					title: (i+1)+" - "+titles[i],
 					mp3:"./scripts/mp3.php?id="+mp3s[i]
 				});
 			}
