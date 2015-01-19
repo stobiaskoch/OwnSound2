@@ -530,7 +530,7 @@ if($_REQUEST['order']=="search") {
 		printf("Connect failed: %s\n", $mysqli->connect_error);
 		exit();
 	}
-	$term = $_REQUEST['search'];
+	$term = utf8_decode($_REQUEST['search']);
 	$query = "SELECT name, id FROM artist WHERE name LIKE '%" . $term . "%' LIMIT 10";
 
 	if ($result = $mysqli->query($query)) {
