@@ -43,9 +43,18 @@ if($_REQUEST['order']=="download") {
 
 		while ($zeile = mysqli_fetch_array( $db_erg, MYSQL_ASSOC))
 		{
-		
-			$path = $zeile['path'];
+			$findMich   = 'ö';
+			$pos = strpos($zeile['path'], $findMich);
+			if ($pos === false) {
+				
+				$path = utf8_encode($zeile['path']);
+			}
+			else {
+				$path = $zeile['path'];
+			}
+			
 			$new_filename = substr($path,strrpos($path,'/') + 1);
+			chmod($path, 0644);
 			$zip->addFile($path,$new_filename);
 			
 		}
